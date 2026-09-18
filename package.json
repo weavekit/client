@@ -1,0 +1,57 @@
+{
+  "name": "@weave-kit/client",
+  "version": "0.1.1",
+  "description": "WeaveKit client — framework-agnostic TypeScript SDK",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "weavekit",
+    "client",
+    "sdk",
+    "rest",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weavekit/client.git"
+  },
+  "scripts": {
+    "dev": "node --watch --import tsx src/client.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "prelint": "node scripts/check-memory-sizes.mjs",
+    "lint": "eslint .",
+    "test": "node --import tsx --test \"tests/**/*.test.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "dependencies": {
+    "@weave-kit/engine": "^0.1.0"
+  }
+}
