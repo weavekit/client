@@ -80,6 +80,13 @@ try {
 }
 ```
 
+## Documentation
+
+Full documentation: **[docs.weavekit.io/client](https://docs.weavekit.io/client)**
+
+- [Getting started](https://docs.weavekit.io/client) — setup and first calls
+- [API reference](https://docs.weavekit.io/client/api) — every method and option
+
 ## Development
 
 ```sh
