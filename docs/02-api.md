@@ -111,7 +111,7 @@ Common codes: `auth.missingKey`/`auth.invalidKey` (401), `rbac.*` (403), `data.r
 
 ## `client.scripts`
 
-Runtime client-hook reads and administrator editing use the same object source endpoint:
+Administrator editing of an object's `server.js` lifecycle-hook source:
 
 ```ts
 const document = await client.scripts.getSource('lead', 'server');
@@ -122,6 +122,7 @@ if (document !== null) {
 }
 ```
 
-Kinds are `server`, `show.client`, and `list.client`. `getSource` returns `{ source, version }` or `null` for a missing file. `save` returns `{ ok, committed, version, warnings? }`; changed content is written and committed by the engine. `expectVersion` is reserved for future optimistic locking and is not enforced yet.
-
-Client kinds are readable by any authenticated identity. Reading `server` and all saves require a role listed in the engine's `adapters.rest.adminRoles`.
+`getSource` returns `{ source, version }` or `null` for a missing file. `save` returns
+`{ ok, committed, version }`; changed content is written and committed by the engine. `expectVersion`
+is accepted for forward compatibility — the write is last-write-wins. Both reading and writing require
+a role listed in the engine's `adapters.rest.adminRoles`.
