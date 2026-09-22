@@ -24,6 +24,9 @@ coverage/
 .tmp-screenshots/
 .opencode/
 
+# Maintainer notes (private, not in this public repo)
+MEMORY/
+
 # Logs
 logs/
 *.log
