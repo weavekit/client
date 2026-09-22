@@ -26,7 +26,7 @@ function captureFetch(specs: { status: number; body?: unknown }[], onRequest?: (
 
 const DESCRIPTOR = {
   name: 'lead',
-  label: 'Lead',
+  labels: { en: 'Lead' },
   fields: [
     { name: 'id', type: 'string', primary: true },
     { name: 'name', type: 'string', required: true },
@@ -45,7 +45,7 @@ describe('client.metadata / permissions / audit accessors (RA-1, M11 contract)',
         [
           { status: 200, body: { objects: [DESCRIPTOR] } },
           { status: 200, body: DESCRIPTOR },
-          { status: 200, body: { objects: [{ name: 'lead', label: 'Lead', permissions: DESCRIPTOR.permissions }] } },
+          { status: 200, body: { objects: [{ name: 'lead', labels: { en: 'Lead' }, permissions: DESCRIPTOR.permissions }] } },
         ],
         (r) => requests.push(r),
       ),
@@ -56,7 +56,7 @@ describe('client.metadata / permissions / audit accessors (RA-1, M11 contract)',
     expect(list.objects[0]!.fields.find((f) => f.name === 'id')?.primary).toBe(true);
 
     const one = await client.metadata.get('lead');
-    expect(one.label).toBe('Lead');
+    expect(one.labels?.en).toBe('Lead');
 
     const perms = await client.permissions();
     expect(perms.objects[0]!.permissions.update).toEqual(['name']);

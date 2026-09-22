@@ -4,7 +4,7 @@ import { request } from './http.js';
 
 /** `GET /api/permissions` — per-object effective permissions for the identity */
 export interface PermissionsResult {
-  objects: Array<{ name: string; label: string; permissions: MetadataPermissions }>;
+  objects: Array<{ name: string; labels?: Record<string, string>; permissions: MetadataPermissions }>;
 }
 
 /** metadata + permissions accessors (M11 frontend contract) */

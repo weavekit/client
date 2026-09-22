@@ -1,6 +1,6 @@
 {
   "name": "@weave-kit/client",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "WeaveKit client — framework-agnostic TypeScript SDK",
   "type": "module",
   "main": "./dist/index.js",
@@ -52,6 +52,6 @@
     "typescript-eslint": "^8.0.0"
   },
   "dependencies": {
-    "@weave-kit/engine": "^0.1.0"
+    "@weave-kit/engine": "^0.2.0"
   }
 }
