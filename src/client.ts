@@ -19,7 +19,7 @@ import type { GuardrailsClient } from './guardrails.js';
 import { createIdentitiesClient } from './identities.js';
 import type { IdentitiesClient } from './identities.js';
 
-export const version = '0.0.0';
+export const version = '0.4.0';
 
 export interface ClientOptions {
   /** engine base URL, e.g. `http://localhost:3000` */
