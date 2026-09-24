@@ -19,6 +19,14 @@ export interface LiveEvent {
   payload: Record<string, unknown>;
 }
 
+/** the `record.transitioned` live event — a workflow transition (additive to `record.updated`) */
+export interface RecordTransitionedEvent {
+  seq?: number;
+  ts?: string;
+  type: 'record.transitioned';
+  payload: { object: string; id: string; from: string; to: string; action: string };
+}
+
 export interface SubscribeOptions {
   onEvent(event: LiveEvent): void;
   onOpen?(): void;

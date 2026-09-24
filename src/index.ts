@@ -7,6 +7,7 @@ export type {
   FindOneParams,
   FindSort,
   LiveEvent,
+  RecordTransitionedEvent,
   SubscribeOptions,
   Subscription,
   MetadataClient,

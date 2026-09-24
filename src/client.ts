@@ -125,7 +125,7 @@ export function createClient(options: ClientOptions): Client {
 
 export type { ObjectsClient } from './objects.js';
 export type { FindParams, FindOneParams, FindSort } from './types.js';
-export type { LiveEvent, SubscribeOptions, Subscription } from './subscribe.js';
+export type { LiveEvent, RecordTransitionedEvent, SubscribeOptions, Subscription } from './subscribe.js';
 export type { MetadataClient, PermissionsResult } from './metadata.js';
 export type { AuditClient, AuditResult } from './audit.js';
 export type { ApprovalsClient, ApprovalListFilter, ApprovalListResult, ApprovalDecisionResult } from './approvals.js';

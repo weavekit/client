@@ -49,6 +49,22 @@ describe('client.subscribe — SSE stream parsing / auth / reconnect replay / cl
     sub.close();
   });
 
+  it('parses record.transitioned with from/to/action', async () => {
+    const { fetchImpl } = sseFetch([
+      [BLOCK(1, 'record.transitioned', { object: 'ticket', id: 'T1', from: 'draft', to: 'open', action: 'submit' })],
+    ]);
+    const client = createClient({ baseUrl: 'http://x', apiKey: 'k1', fetch: fetchImpl });
+    const events: LiveEvent[] = [];
+    const sub = client.subscribe({ onEvent: (e) => events.push(e), backoffMs: 1000 });
+    await sleep(80);
+    expect(events).toHaveLength(1);
+    expect(events[0]).toMatchObject({
+      type: 'record.transitioned',
+      payload: { object: 'ticket', id: 'T1', from: 'draft', to: 'open', action: 'submit' },
+    });
+    sub.close();
+  });
+
   it('auth header Bearer + reconnect after stream ends with Last-Event-ID replay', async () => {
     const { fetchImpl, requests } = sseFetch([
       [BLOCK(7, 'record.created', { object: 'lead', id: 'L1' })],
