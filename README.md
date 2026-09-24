@@ -44,7 +44,7 @@ await leads.delete('L1');
 - `delete(id)` — `Promise<void>`
 
 The client also exposes `metadata`, `permissions`, `audit`, `approvals`, `guardrails`, `identities`,
-`layouts`, `schema`, `scripts`, and an SSE `subscribe` for live events.
+`workflow`, `layouts`, `schema`, `scripts`, and an SSE `subscribe` for live events.
 
 ## Object-level types
 

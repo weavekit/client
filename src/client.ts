@@ -18,6 +18,8 @@ import { createGuardrailsClient } from './guardrails.js';
 import type { GuardrailsClient } from './guardrails.js';
 import { createIdentitiesClient } from './identities.js';
 import type { IdentitiesClient } from './identities.js';
+import { createWorkflowClient } from './workflow.js';
+import type { WorkflowClient } from './workflow.js';
 
 export const version = '0.5.0';
 
@@ -66,6 +68,8 @@ export interface Client {
   guardrails: GuardrailsClient;
   /** MCP on-behalf-of identity directory (admin read) */
   identities: IdentitiesClient;
+  /** declared state machine: read the current state / fire a transition (objects with a workflow) */
+  workflow: WorkflowClient;
   /**
    * Live event subscription: SSE stream of record/audit/schema changes,
    * filtered server-side by the identity's RBAC. Auto-reconnects with backoff
@@ -112,6 +116,7 @@ export function createClient(options: ClientOptions): Client {
     schema: createSchemaClient(http),
     guardrails: createGuardrailsClient(http),
     identities: createIdentitiesClient(http),
+    workflow: createWorkflowClient(http),
     subscribe(options: SubscribeOptions): Subscription {
       return createSubscriber(http)(options);
     },
@@ -161,6 +166,7 @@ export type {
   GuardrailSaveResult,
 } from './guardrails.js';
 export type { IdentitiesClient, IdentitySummary, IdentitiesListResult } from './identities.js';
+export type { WorkflowClient, WorkflowState, WorkflowAction } from './workflow.js';
 export { layoutPagePath } from './layouts.js';
 export type { AuditEvent, AuditQuery } from '@weave-kit/engine';
 export type { PendingApproval, ApprovalStatus } from '@weave-kit/engine';

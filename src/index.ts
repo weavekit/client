@@ -56,6 +56,9 @@ export type {
   IdentitiesClient,
   IdentitySummary,
   IdentitiesListResult,
+  WorkflowClient,
+  WorkflowState,
+  WorkflowAction,
 } from './client.js';
 export type { ScriptSourceKind, PendingApproval, ApprovalStatus } from '@weave-kit/engine';
 export type { LayoutAddress, ObjectLayoutView, PageRef } from '@weave-kit/engine/layout';

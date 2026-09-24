@@ -21,6 +21,7 @@ src/
 ├── approvals.ts    # client.approvals.list/approve/reject (approval queue, admin)
 ├── guardrails.ts   # client.guardrails.list/getSource/history/save (guardrail policy source)
 ├── identities.ts   # client.identities.list (identity directory, admin read)
+├── workflow.ts     # client.workflow.get(object,id)/transition(object,id,action) (state machine)
 ├── subscribe.ts    # client.subscribe (live events: fetch SSE stream + auto-reconnect + replay)
 ├── layouts.ts      # client.layouts.getSource(addr)/save/list/create/rename/delete/saveDesign
 │                   # (page layout source, path-mirrored addressing)
@@ -30,6 +31,7 @@ src/
 tests/
 ├── client.test.ts           # mock-fetch unit tests
 ├── client-accessors.test.ts # metadata/permissions/audit accessors
+├── workflow-accessors.test.ts # client.workflow.get/transition
 ├── subscribe.test.ts        # SSE stream parsing / reconnect / 401 / close
 ├── scripts.test.ts          # client.scripts.getSource/save: JSON source / 404→null / error mapping
 └── e2e/client.e2e.test.ts   # real engine + listen + fetch E2E
