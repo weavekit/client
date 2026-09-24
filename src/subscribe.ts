@@ -24,7 +24,17 @@ export interface RecordTransitionedEvent {
   seq?: number;
   ts?: string;
   type: 'record.transitioned';
-  payload: { object: string; id: string; from: string; to: string; action: string };
+  payload: {
+    object: string;
+    id: string;
+    from: string;
+    to: string;
+    action: string;
+    /** author-managed definition revision active at transition time */
+    workflowVersion?: number;
+    /** semantic hash of the definition active at transition time */
+    workflowHash?: string;
+  };
 }
 
 export interface SubscribeOptions {

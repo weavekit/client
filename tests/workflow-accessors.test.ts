@@ -1,5 +1,5 @@
 import { describe, it, expect } from './helpers/test.js';
-import { createClient } from '../src/index.js';
+import { ClientError, createClient } from '../src/index.js';
 
 interface CapturedRequest {
   url: string;
@@ -45,5 +45,28 @@ describe('client.workflow accessor', () => {
       { url: 'http://localhost:3000/api/objects/ticket/T1/workflow', method: 'GET' },
       { url: 'http://localhost:3000/api/objects/ticket/T1/transitions/submit', method: 'POST' },
     ]);
+  });
+
+  it('maps a workflow error (404 workflow.transition.unknown) to ClientError', async () => {
+    const client = createClient({
+      baseUrl: 'http://localhost:3000',
+      apiKey: 'k1',
+      fetch: captureFetch([
+        {
+          status: 404,
+          body: { error: { code: 'workflow.transition.unknown', message: 'unknown transition "ship"' } },
+        },
+      ]),
+    });
+
+    let caught: unknown;
+    try {
+      await client.workflow.transition('ticket', 'T1', 'ship');
+    } catch (error) {
+      caught = error;
+    }
+    expect(caught instanceof ClientError).toBe(true);
+    expect((caught as ClientError).status).toBe(404);
+    expect((caught as ClientError).code).toBe('workflow.transition.unknown');
   });
 });
