@@ -12,7 +12,7 @@ export interface ScriptSourceOptions {
 }
 
 export interface ScriptSaveOptions extends ScriptSourceOptions {
-  /** Reserved for optimistic locking; SU-7b servers accept but do not enforce it. */
+  /** Reserved for optimistic locking; servers accept but do not enforce it. */
   expectVersion?: string;
 }
 

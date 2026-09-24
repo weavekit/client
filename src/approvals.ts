@@ -2,7 +2,7 @@ import type { ApprovalStatus, PendingApproval } from '@weave-kit/engine';
 import type { HttpOptions } from './http.js';
 import { request } from './http.js';
 
-/** approval list filter (D1) — mirrors the engine `ApprovalListFilter` wire params */
+/** approval list filter — mirrors the engine `ApprovalListFilter` wire params */
 export interface ApprovalListFilter {
   status?: ApprovalStatus;
   action?: string;
@@ -29,7 +29,7 @@ export interface ApprovalDecisionResult {
   approver: string;
 }
 
-/** approval queue accessor (D1): list / approve / reject over the engine REST surface */
+/** approval queue accessor: list / approve / reject over the engine REST surface */
 export interface ApprovalsClient {
   list(params?: ApprovalListFilter): Promise<ApprovalListResult>;
   approve(approvalKey: string): Promise<ApprovalDecisionResult>;

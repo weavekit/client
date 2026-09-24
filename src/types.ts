@@ -6,7 +6,7 @@ export interface FindSort {
   direction: SortDir;
 }
 
-/** list query params — serialized to the M5 REST contract (filter/sort/fields/limit/offset) */
+/** list query params — serialized to the REST contract (filter/sort/fields/limit/offset) */
 export interface FindParams {
   /** equality/operator filter object (JSON-encoded on the wire) */
   filter?: Filter;

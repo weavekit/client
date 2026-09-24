@@ -35,7 +35,7 @@ const DESCRIPTOR = {
   permissions: { read: 'own', create: true, update: ['name'], delete: true, excludedFields: [] },
 };
 
-describe('client.metadata / permissions / audit accessors (RA-1, M11 contract)', () => {
+describe('client.metadata / permissions / audit accessors (frontend metadata contract)', () => {
   it('metadata.list / metadata.get / permissions serialization and parsing', async () => {
     const requests: CapturedRequest[] = [];
     const client = createClient({

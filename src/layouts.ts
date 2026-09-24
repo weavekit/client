@@ -3,7 +3,7 @@ import type { HttpOptions } from './http.js';
 import { ClientError, request } from './http.js';
 
 /**
- * Page layout source accessor (SU-7c). The engine serves the raw layout JSON
+ * Page layout source accessor. The engine serves the raw layout JSON
  * source and its content version via the path-mirrored API
  * (`/pages/<path>` — e.g. `app.layout` / `<id>.layout` /
  * `<object>/show.layout` / `<object>/list.layout`); interpretation belongs to

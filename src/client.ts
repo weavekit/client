@@ -48,13 +48,13 @@ export interface Client {
    * without ever holding a customer-engine key in the browser.
    */
   derive(options?: { prefix?: string; apiKey?: string }): Client;
-  /** schema + permissions metadata (M11): what this identity can read / do */
+  /** schema + permissions metadata: what this identity can read / do */
   metadata: MetadataClient;
   /** effective permissions per object (shorthand for `metadata.permissions()`) */
   permissions(): Promise<PermissionsResult>;
-  /** audit trail query (M11): own actor by default */
+  /** audit trail query: own actor by default */
   audit: AuditClient;
-  /** approval queue (D1): list/approve/reject — admin-gated by the engine */
+  /** approval queue: list/approve/reject — admin-gated by the engine */
   approvals: ApprovalsClient;
   /** client-side script source (`*.client.js`) per object — engine serves, frontend executes */
   scripts: ScriptsClient;
@@ -67,7 +67,7 @@ export interface Client {
   /** MCP on-behalf-of identity directory (admin read) */
   identities: IdentitiesClient;
   /**
-   * Live event subscription (M12): SSE stream of record/audit/schema changes,
+   * Live event subscription: SSE stream of record/audit/schema changes,
    * filtered server-side by the identity's RBAC. Auto-reconnects with backoff
    * and replays missed events via `Last-Event-ID`. Returns a handle to close.
    */

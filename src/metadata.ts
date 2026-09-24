@@ -7,7 +7,7 @@ export interface PermissionsResult {
   objects: Array<{ name: string; labels?: Record<string, string>; permissions: MetadataPermissions }>;
 }
 
-/** metadata + permissions accessors (M11 frontend contract) */
+/** metadata + permissions accessors (frontend contract) */
 export interface MetadataClient {
   /** all objects the identity can read, each with its field schema + permissions */
   list(): Promise<{ objects: ObjectDescriptor[] }>;

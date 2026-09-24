@@ -33,7 +33,7 @@ function captureFetch(specs: { status: number; body?: unknown }[], onRequest?: (
   }) as typeof fetch;
 }
 
-describe('client.guardrails accessors (M10c)', () => {
+describe('client.guardrails accessors', () => {
   it('list serializes to GET /api/guardrails/policies', async () => {
     const requests: CapturedRequest[] = [];
     const client = createClient({

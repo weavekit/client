@@ -24,7 +24,7 @@ function captureFetch(specs: { status: number; body?: unknown }[], onRequest?: (
   }) as typeof fetch;
 }
 
-describe('client.identities accessors (M11)', () => {
+describe('client.identities accessors', () => {
   it('list serializes to GET /api/identities and parses roles', async () => {
     const requests: CapturedRequest[] = [];
     const client = createClient({

@@ -2,7 +2,7 @@ import { ClientError } from './http.js';
 import type { HttpOptions } from './http.js';
 
 /**
- * Live subscription (M12) — fetch-based SSE client. `fetch` can set the
+ * Live subscription — fetch-based SSE client. `fetch` can set the
  * Authorization header (native EventSource cannot), so the API key travels in
  * the Bearer header, never in the query string. Auto-reconnects with backoff
  * and sends `Last-Event-ID` so the engine replays events missed while

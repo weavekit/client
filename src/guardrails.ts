@@ -47,7 +47,7 @@ export interface GuardrailSaveResult {
 }
 
 /**
- * Guardrail policy source accessor (M10c): the engine project's `policies/`
+ * Guardrail policy source accessor: the engine project's `policies/`
  * directory (admin) — list policy files, read one policy's source, and write it
  * back (git committed). Inline-array guardrails have no file surface so `list`
  * returns `{ policies: [] }` when the project configures none.

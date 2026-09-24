@@ -2,7 +2,7 @@ import type { HttpOptions } from './http.js';
 import { ClientError, request } from './http.js';
 
 /**
- * Raw object schema source accessor (SU-7c). The engine serves/accepts
+ * Raw object schema source accessor. The engine serves/accepts
  * `objects/<name>/schema.json` source + content version (admin-gated). PUT runs
  * the loader's validation (parse + full cross-object graph) and never applies
  * DDL — structural changes take effect on the next `weave dev`/`migrate`.

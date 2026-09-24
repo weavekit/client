@@ -10,7 +10,7 @@ export interface AuditResult {
   offset: number;
 }
 
-/** audit accessor (M11): paginated query with actor/action/object/date filters */
+/** audit accessor: paginated query with actor/action/object/date filters */
 export interface AuditClient {
   query(params?: AuditQuery): Promise<AuditResult>;
 }

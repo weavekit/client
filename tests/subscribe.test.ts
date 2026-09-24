@@ -34,7 +34,7 @@ function sseFetch(bodies: string[][]): { fetchImpl: typeof fetch; requests: { ur
 const BLOCK = (id: number, type: string, payload: Record<string, unknown>) =>
   `id: ${id}\nevent: ${type}\ndata: ${JSON.stringify({ seq: id, type, payload })}\n\n`;
 
-describe('client.subscribe — SSE stream parsing / auth / reconnect replay / close (M12e)', () => {
+describe('client.subscribe — SSE stream parsing / auth / reconnect replay / close', () => {
   it('parses event blocks (id/event/data), skips : ping comment blocks', async () => {
     const { fetchImpl } = sseFetch([
       [': ping\n\n', BLOCK(1, 'record.created', { object: 'lead', id: 'L1' }), BLOCK(2, 'schema.changed', { kind: 'schema' })],
