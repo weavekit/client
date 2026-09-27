@@ -58,6 +58,10 @@ async findOne(id: string, params?: { fields?: string[] }): Promise<T | null>
 
 Returns the record, or `null` when the engine answers `404` (`data.recordNotFound`) — e.g. the row is outside the caller's RBAC scope.
 
+> `id` is the record's **`record_key`** (surfaced on each record as the read-only virtual field
+> `weave_id`), not the raw primary-key value. Request it in `find({ fields: ['weave_id', …] })` (or read
+> it from `create`) and pass that string to `findOne` / `update` / `delete` / `workflow.*`.
+
 ### `create(data)`
 
 ```ts

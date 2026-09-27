@@ -43,6 +43,9 @@ await leads.delete('L1');
 - `update(id, changes: Partial<T>)` — `Promise<T>`
 - `delete(id)` — `Promise<void>`
 
+`id` is the record's `record_key` (the read-only virtual field `weave_id`), not the raw primary key —
+request `weave_id` in `fields` and pass it back.
+
 The client also exposes `metadata`, `permissions`, `audit`, `approvals`, `guardrails`, `identities`,
 `workflow`, `layouts`, `schema`, `scripts`, and an SSE `subscribe` for live events.
 
