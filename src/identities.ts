@@ -5,7 +5,7 @@ export interface IdentitySummary {
   ref: string;
   id: string;
   roles: string[];
-  teamId?: string;
+  departmentId?: string;
 }
 
 export interface IdentitiesListResult {

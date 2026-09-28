@@ -31,12 +31,12 @@ describe('client.identities accessors', () => {
       baseUrl: 'http://localhost:3000',
       apiKey: 'k1',
       fetch: captureFetch(
-        [{ status: 200, body: { identities: [{ ref: 'support', id: 'u-2', roles: ['support'], teamId: 't1' }] } }],
+        [{ status: 200, body: { identities: [{ ref: 'support', id: 'u-2', roles: ['support'], departmentId: 'd1' }] } }],
         (r) => requests.push(r),
       ),
     });
     const result = await client.identities.list();
-    expect(result.identities).toEqual([{ ref: 'support', id: 'u-2', roles: ['support'], teamId: 't1' }]);
+    expect(result.identities).toEqual([{ ref: 'support', id: 'u-2', roles: ['support'], departmentId: 'd1' }]);
     expect(requests[0]!.url).toBe('http://localhost:3000/api/identities');
     expect(requests[0]!.method).toBe('GET');
     expect(requests[0]!.headers.authorization).toBe('Bearer k1');
