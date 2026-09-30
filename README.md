@@ -11,7 +11,7 @@ implementation exists.
 npm install @weave-kit/client
 ```
 
-Requires Node.js 24 LTS (for a Node runtime) or any modern browser.
+Requires Node.js 22+ (for a Node runtime) or any modern browser.
 
 ## Usage
 
