@@ -3,6 +3,15 @@
 All notable changes to `@weave-kit/client`. Format follows [Keep a Changelog](https://keepachangelog.com/);
 the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.0.0]
+
+Works with `@weave-kit/engine@1.0.0`. Requires Node 22+.
+
+### Changed
+
+- `@weave-kit/engine` peer dependency range is `^1.0.0`. No client API changes — aligns with the
+  engine's **G1 contract-freeze** (1.0) release.
+
 ## [0.11.0]
 
 Works with `@weave-kit/engine@0.11.0`. Requires Node 22+.

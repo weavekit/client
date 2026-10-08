@@ -1,4 +1,4 @@
-import { describe, it, expect } from '../helpers/test.js';import { buildEngineFromRegistry, createPool, migrate, ObjectRegistry, ROW_SCOPE_MARKERS } from '@weave-kit/engine';
+import { describe, it, expect } from '../helpers/test.js';import { buildEngineFromRegistry, createPool, migrate, ObjectRegistry, ROW_SCOPE_MARKERS, SYSTEM_CAPABILITIES, systemPrincipal } from '@weave-kit/engine';
 import type { ObjectDefinition } from '@weave-kit/engine';
 import { ClientError, createClient } from '../../src/index.js';
 
@@ -38,7 +38,7 @@ maybe('Client SDK E2E (real engine + listen + fetch + local PG)', () => {
       databaseUrl: url!,
       auth: { source: { 'key-sales-rep': { id: 'u100', roles: ['sales'] } } },
     });
-    const base = { pool: engine.pool, registry: engine.registry };
+    const base = { pool: engine.pool, registry: engine.registry, principal: systemPrincipal(SYSTEM_CAPABILITIES.INTERNAL_ADMIN) };
     try {
       await engine.app.listen({ host: '127.0.0.1', port });
       await pool.query('DROP TABLE IF EXISTS lead, weavekit_metadata, weavekit_meta CASCADE');
