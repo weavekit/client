@@ -10,8 +10,6 @@ import { createApprovalsClient } from './approvals.js';
 import type { ApprovalsClient } from './approvals.js';
 import { createScriptsClient } from './scripts.js';
 import type { ScriptsClient } from './scripts.js';
-import { createLayoutsClient } from './layouts.js';
-import type { LayoutsClient } from './layouts.js';
 import { createSchemaClient } from './schema.js';
 import type { SchemaClient } from './schema.js';
 import { createGuardrailsClient } from './guardrails.js';
@@ -21,7 +19,7 @@ import type { IdentitiesClient } from './identities.js';
 import { createWorkflowClient } from './workflow.js';
 import type { WorkflowClient } from './workflow.js';
 
-export const version = '0.7.0';
+export const version = '1.1.0';
 
 export interface ClientOptions {
   /** engine base URL, e.g. `http://localhost:3000` */
@@ -60,8 +58,6 @@ export interface Client {
   approvals: ApprovalsClient;
   /** client-side script source (`*.client.js`) per object — engine serves, frontend executes */
   scripts: ScriptsClient;
-  /** page-layout source (path-mirrored addressing) — engine serves, frontend interprets */
-  layouts: LayoutsClient;
   /** raw object schema source (admin read/write) — engine serves, ObjectDesigner edits */
   schema: SchemaClient;
   /** guardrail policy source (admin read/write) — engine project `policies/` dir */
@@ -112,7 +108,6 @@ export function createClient(options: ClientOptions): Client {
     audit: createAuditClient(http),
     approvals: createApprovalsClient(http),
     scripts: createScriptsClient(http),
-    layouts: createLayoutsClient(http),
     schema: createSchemaClient(http),
     guardrails: createGuardrailsClient(http),
     identities: createIdentitiesClient(http),
@@ -136,23 +131,6 @@ export type {
   ScriptSourceOptions,
   ScriptsClient,
 } from './scripts.js';
-export type { LayoutsClient } from './layouts.js';
-export type {
-  SourceDocument,
-  PageSummary,
-  CreatePageOptions,
-  CreatePageResult,
-  RenamePageOptions,
-  RenamePageResult,
-  DeletePageOptions,
-  DeletePageResult,
-  DesignSaveOptions,
-  DesignSavePart,
-  DesignSaveResult,
-  LayoutSaveOptions,
-  LayoutSaveResult,
-  LayoutSourceOptions,
-} from './layouts.js';
 export type { SchemaClient, SchemaSourceDocument, SchemaSourceOptions, SchemaSaveOptions, SchemaSaveResult } from './schema.js';
 export type {
   GuardrailsClient,
@@ -167,8 +145,6 @@ export type {
 } from './guardrails.js';
 export type { IdentitiesClient, IdentitySummary, IdentitiesListResult } from './identities.js';
 export type { WorkflowClient, WorkflowState, WorkflowAction } from './workflow.js';
-export { layoutPagePath } from './layouts.js';
 export type { AuditEvent, AuditQuery } from '@weave-kit/engine';
 export type { PendingApproval, ApprovalStatus } from '@weave-kit/engine';
-export type { LayoutAddress, ObjectLayoutView, PageRef } from '@weave-kit/engine/layout';
 export { ClientError } from './http.js';

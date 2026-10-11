@@ -47,7 +47,7 @@ await leads.delete('L1');
 request `weave_id` in `fields` and pass it back.
 
 The client also exposes `metadata`, `permissions`, `audit`, `approvals`, `guardrails`, `identities`,
-`workflow`, `layouts`, `schema`, `scripts`, and an SSE `subscribe` for live events.
+`workflow`, `schema`, `scripts`, and an SSE `subscribe` for live events.
 
 ## Object-level types
 

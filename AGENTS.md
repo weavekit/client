@@ -23,8 +23,6 @@ src/
 ├── identities.ts   # client.identities.list (identity directory, admin read)
 ├── workflow.ts     # client.workflow.get(object,id)/transition(object,id,action) (state machine)
 ├── subscribe.ts    # client.subscribe (live events: fetch SSE stream + auto-reconnect + replay)
-├── layouts.ts      # client.layouts.getSource(addr)/save/list/create/rename/delete/saveDesign
-│                   # (page layout source, path-mirrored addressing)
 ├── schema.ts       # client.schema.getSource/save (object raw schema source + version; admin)
 ├── scripts.ts      # unified getSource/save (object-level server/show/list source, version + Git commit)
 └── index.ts        # re-exports

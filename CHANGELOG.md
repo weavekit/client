@@ -3,6 +3,23 @@
 All notable changes to `@weave-kit/client`. Format follows [Keep a Changelog](https://keepachangelog.com/);
 the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.1.0]
+
+Works with `@weave-kit/engine@^1.3.0`. Requires Node 22+.
+
+### Removed
+
+- **`layouts` client retired.** `client.layouts.*` (`getSource` / `save` / `list` / `create` /
+  `rename` / `delete` / `saveDesign`), `layoutPagePath`, and the page/layout types (`SourceDocument`,
+  `PageSummary`, the `*Page*` / `*Design*` / `*Layout*` option/result types, and the re-exported
+  `LayoutAddress` / `ObjectLayoutView` / `PageRef`) are removed. The engine retired the layout format
+  and the `@weave-kit/engine/layout` export (2026-10) — it is headless and emits no UI — so this
+  release realigns the client with `@weave-kit/engine@^1.3.0`.
+
+### Changed
+
+- `@weave-kit/engine` peer dependency range is `^1.3.0`.
+
 ## [1.0.0]
 
 Works with `@weave-kit/engine@1.0.0`. Requires Node 22+.

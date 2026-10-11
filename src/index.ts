@@ -1,4 +1,4 @@
-export { createClient, ClientError, version, layoutPagePath } from './client.js';
+export { createClient, ClientError, version } from './client.js';
 export type {
   Client,
   ClientOptions,
@@ -25,21 +25,6 @@ export type {
   ScriptSaveResult,
   ScriptSourceDocument,
   ScriptSourceOptions,
-  LayoutsClient,
-  SourceDocument,
-  PageSummary,
-  CreatePageOptions,
-  CreatePageResult,
-  RenamePageOptions,
-  RenamePageResult,
-  DeletePageOptions,
-  DeletePageResult,
-  DesignSaveOptions,
-  DesignSavePart,
-  DesignSaveResult,
-  LayoutSaveOptions,
-  LayoutSaveResult,
-  LayoutSourceOptions,
   SchemaClient,
   SchemaSourceDocument,
   SchemaSourceOptions,
@@ -62,4 +47,3 @@ export type {
   WorkflowAction,
 } from './client.js';
 export type { ScriptSourceKind, PendingApproval, ApprovalStatus } from '@weave-kit/engine';
-export type { LayoutAddress, ObjectLayoutView, PageRef } from '@weave-kit/engine/layout';
