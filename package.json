@@ -46,7 +46,7 @@
     "test": "node --import tsx --test \"tests/**/*.test.ts\""
   },
   "dependencies": {
-    "@weave-kit/contract": "^1.0.0"
+    "@weave-kit/contract": "^2.0.0"
   },
   "devDependencies": {
     "@weave-kit/engine": "^1.8.0",
