@@ -1,6 +1,6 @@
 {
   "name": "@weave-kit/client",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "WeaveKit client — framework-agnostic TypeScript SDK",
   "type": "module",
   "main": "./dist/index.js",
@@ -45,16 +45,11 @@
     "lint": "eslint .",
     "test": "node --import tsx --test \"tests/**/*.test.ts\""
   },
-  "peerDependencies": {
-    "@weave-kit/engine": "^1.5.0"
-  },
-  "peerDependenciesMeta": {
-    "@weave-kit/engine": {
-      "optional": true
-    }
+  "dependencies": {
+    "@weave-kit/contract": "^1.0.0"
   },
   "devDependencies": {
-    "@weave-kit/engine": "^1.5.0",
+    "@weave-kit/engine": "^1.8.0",
     "@types/node": "^22.0.0",
     "eslint": "^9.0.0",
     "tsx": "^4.20.0",

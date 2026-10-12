@@ -1,4 +1,4 @@
-import type { ScriptSourceKind } from "@weave-kit/engine";
+import type { ScriptSourceKind } from "@weave-kit/contract";
 import type { HttpOptions } from "./http.js";
 import { ClientError, request } from "./http.js";
 

@@ -1,4 +1,4 @@
-import type { MetadataPermissions, ObjectDescriptor } from '@weave-kit/engine';
+import type { MetadataPermissions, ObjectDescriptor } from '@weave-kit/contract';
 import type { HttpOptions } from './http.js';
 import { request } from './http.js';
 

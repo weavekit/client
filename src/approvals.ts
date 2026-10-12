@@ -1,4 +1,4 @@
-import type { ApprovalStatus, PendingApproval } from '@weave-kit/engine';
+import type { ApprovalStatus, PendingApproval } from '@weave-kit/contract';
 import type { HttpOptions } from './http.js';
 import { request } from './http.js';
 

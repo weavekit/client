@@ -1,4 +1,4 @@
-import type { ApiErrorBody } from '@weave-kit/engine';
+import type { ApiErrorBody } from '@weave-kit/contract';
 
 /** uniform error surfaced from the engine REST layer (see ApiErrorBody) */
 export class ClientError extends Error {

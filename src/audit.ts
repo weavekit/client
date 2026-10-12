@@ -1,4 +1,4 @@
-import type { AuditEvent, AuditQuery } from '@weave-kit/engine';
+import type { AuditEvent, AuditQuery } from '@weave-kit/contract';
 import type { HttpOptions } from './http.js';
 import { request } from './http.js';
 

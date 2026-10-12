@@ -1,4 +1,4 @@
-import type { Filter, SortDir, TotalMode } from '@weave-kit/engine';
+import type { Filter, SortDir, TotalMode } from '@weave-kit/contract';
 
 /** one sort clause; serialized as `field:direction` on the wire */
 export interface FindSort {

@@ -1,4 +1,4 @@
-import type { RestResult } from '@weave-kit/engine';
+import type { RestResult } from '@weave-kit/contract';
 import { ClientError, request } from './http.js';
 import type { HttpOptions } from './http.js';
 import { buildFindQuery } from './types.js';

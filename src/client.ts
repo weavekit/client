@@ -145,6 +145,6 @@ export type {
 } from './guardrails.js';
 export type { IdentitiesClient, IdentitySummary, IdentitiesListResult } from './identities.js';
 export type { WorkflowClient, WorkflowState, WorkflowAction } from './workflow.js';
-export type { AuditEvent, AuditQuery } from '@weave-kit/engine';
-export type { PendingApproval, ApprovalStatus } from '@weave-kit/engine';
+export type { AuditEvent, AuditQuery } from '@weave-kit/contract';
+export type { PendingApproval, ApprovalStatus } from '@weave-kit/contract';
 export { ClientError } from './http.js';
