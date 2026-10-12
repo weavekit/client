@@ -3,6 +3,19 @@
 All notable changes to `@weave-kit/client`. Format follows [Keep a Changelog](https://keepachangelog.com/);
 the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.1.1]
+
+Works with `@weave-kit/engine@^1.5.0`.
+
+### Changed
+
+- **`@weave-kit/engine` is now an optional peer dependency** (`peerDependenciesMeta`). The client only
+  uses engine **types** (type-only import), so front-end projects no longer get the whole server
+  runtime pulled in by npm's automatic peer install (fastify, pg, esbuild, tsx, pgsql-parser). The
+  peer/dev range is bumped to `^1.5.0`.
+- `FindParams.total` (`'exact' | 'estimate' | 'none'`) is serialized to the REST `total` query param
+  so a caller can opt out of / estimate the server-side row count.
+
 ## [1.1.0]
 
 Works with `@weave-kit/engine@^1.3.0`. Requires Node 22+.

@@ -1,4 +1,4 @@
-import type { Filter, SortDir } from '@weave-kit/engine';
+import type { Filter, SortDir, TotalMode } from '@weave-kit/engine';
 
 /** one sort clause; serialized as `field:direction` on the wire */
 export interface FindSort {
@@ -15,6 +15,8 @@ export interface FindParams {
   offset?: number;
   /** column projection whitelist */
   fields?: string[];
+  /** how the server computes `total`: `exact` (default), `estimate` (reltuples) or `none` (omit) */
+  total?: TotalMode;
 }
 
 /** single-record read params */
@@ -30,5 +32,6 @@ export function buildFindQuery(params: FindParams): Record<string, string> | und
   if (params.fields !== undefined) query.fields = params.fields.join(',');
   if (params.limit !== undefined) query.limit = String(params.limit);
   if (params.offset !== undefined) query.offset = String(params.offset);
+  if (params.total !== undefined) query.total = params.total;
   return Object.keys(query).length === 0 ? undefined : query;
 }
