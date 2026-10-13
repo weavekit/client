@@ -1,9 +1,12 @@
-import { describe, it, expect } from '../helpers/test.js';import { buildEngineFromRegistry, createPool, migrate, ObjectRegistry, ROW_SCOPE_MARKERS, SYSTEM_CAPABILITIES, systemPrincipal } from '@weave-kit/engine';
+import { describe, it, expect } from '../helpers/test.js';import { buildEngineFromRegistry, createPool, migrate, ObjectRegistry, ROW_SCOPE_MARKERS, SYSTEM_CAPABILITIES, systemPrincipal, encodeRecordKey } from '@weave-kit/engine';
 import type { ObjectDefinition } from '@weave-kit/engine';
 import { ClientError, createClient } from '../../src/index.js';
 
 const url = process.env.DATABASE_URL;
 const maybe = url !== undefined ? describe : describe.skip;
+
+/** the REST path id is the record_key (weave_id), not the raw primary key */
+const rk = (id: string): string => encodeRecordKey([id]);
 
 const LEAD: ObjectDefinition = {
   name: 'lead',
@@ -37,6 +40,7 @@ maybe('Client SDK E2E (real engine + listen + fetch + local PG)', () => {
     const engine = await buildEngineFromRegistry(registry, {
       databaseUrl: url!,
       auth: { source: { 'key-sales-rep': { id: 'u100', roles: ['sales'] } } },
+      runtime: { requireRestrictedAccount: false },
     });
     const base = { pool: engine.pool, registry: engine.registry, principal: systemPrincipal(SYSTEM_CAPABILITIES.INTERNAL_ADMIN) };
     try {
@@ -57,21 +61,21 @@ maybe('Client SDK E2E (real engine + listen + fetch + local PG)', () => {
       expect('secret' in found.rows[0]!).toBe(false);
 
       // 2. findOne: own hit / unauthorized row → null (404 does not leak existence)
-      expect((await leads.findOne('L1'))?.name).toBe('Acme');
-      expect(await leads.findOne('L2')).toBeNull();
+      expect((await leads.findOne(rk('L1')))?.name).toBe('Acme');
+      expect(await leads.findOne(rk('L2'))).toBeNull();
 
       // 3. create：201
       const created = await leads.create({ id: 'L3', name: 'Umbrella', owner_id: 'u100', secret: 's3' });
       expect(created.id).toBe('L3');
 
       // 4. update: allowed field
-      const updated = await leads.update('L3', { name: 'Umbrella2' });
+      const updated = await leads.update(rk('L3'), { name: 'Umbrella2' });
       expect(updated.name).toBe('Umbrella2');
 
       // 5. update unauthorized row → 404 ClientError (no leak)
       let updateDenied: unknown;
       try {
-        await leads.update('L2', { name: 'x' });
+        await leads.update(rk('L2'), { name: 'x' });
       } catch (error) {
         updateDenied = error;
       }
@@ -79,8 +83,8 @@ maybe('Client SDK E2E (real engine + listen + fetch + local PG)', () => {
       expect((updateDenied as ClientError).status).toBe(404);
 
       // 6. delete: own row 204
-      await leads.delete('L3');
-      expect(await leads.findOne('L3')).toBeNull();
+      await leads.delete(rk('L3'));
+      expect(await leads.findOne(rk('L3'))).toBeNull();
 
       // 7. no apiKey → 401 ClientError
       const anon = createClient({ baseUrl }).objects('lead');
