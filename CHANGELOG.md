@@ -3,6 +3,14 @@
 All notable changes to `@weave-kit/client`. Format follows [Keep a Changelog](https://keepachangelog.com/);
 the project uses [Semantic Versioning](https://semver.org/).
 
+## [2.1.0]
+
+### Added
+
+- `ApprovalsClient.approve` / `reject` accept `{ comment? }`; approval filters support
+  `requestedBy` / `approvalKey`.
+- Re-exports the extended `PendingApproval` contract fields.
+
 ## [1.1.1]
 
 Works with `@weave-kit/engine@^1.5.0`.

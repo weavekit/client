@@ -19,7 +19,7 @@ import type { IdentitiesClient } from './identities.js';
 import { createWorkflowClient } from './workflow.js';
 import type { WorkflowClient } from './workflow.js';
 
-export const version = '1.1.0';
+export const version = '2.1.0';
 
 export interface ClientOptions {
   /** engine base URL, e.g. `http://localhost:3000` */

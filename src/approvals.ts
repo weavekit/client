@@ -7,6 +7,8 @@ export interface ApprovalListFilter {
   status?: ApprovalStatus;
   action?: string;
   actorKey?: string;
+  requestedBy?: string;
+  approvalKey?: string;
   from?: Date;
   to?: Date;
   limit?: number;
@@ -27,13 +29,19 @@ export interface ApprovalDecisionResult {
   approvalKey: string;
   status: ApprovalStatus;
   approver: string;
+  comment?: string;
+}
+
+export interface ApprovalDecisionOptions {
+  /** approver note (required for rejection by the Console contract) */
+  comment?: string;
 }
 
 /** approval queue accessor: list / approve / reject over the engine REST surface */
 export interface ApprovalsClient {
   list(params?: ApprovalListFilter): Promise<ApprovalListResult>;
-  approve(approvalKey: string): Promise<ApprovalDecisionResult>;
-  reject(approvalKey: string): Promise<ApprovalDecisionResult>;
+  approve(approvalKey: string, options?: ApprovalDecisionOptions): Promise<ApprovalDecisionResult>;
+  reject(approvalKey: string, options?: ApprovalDecisionOptions): Promise<ApprovalDecisionResult>;
 }
 
 export function createApprovalsClient(http: HttpOptions): ApprovalsClient {
@@ -43,6 +51,8 @@ export function createApprovalsClient(http: HttpOptions): ApprovalsClient {
       if (params?.status !== undefined) query.status = params.status;
       if (params?.action !== undefined) query.action = params.action;
       if (params?.actorKey !== undefined) query.actorKey = params.actorKey;
+      if (params?.requestedBy !== undefined) query.requestedBy = params.requestedBy;
+      if (params?.approvalKey !== undefined) query.approvalKey = params.approvalKey;
       if (params?.from !== undefined) query.from = params.from.toISOString();
       if (params?.to !== undefined) query.to = params.to.toISOString();
       if (params?.limit !== undefined) query.limit = String(params.limit);
@@ -55,11 +65,15 @@ export function createApprovalsClient(http: HttpOptions): ApprovalsClient {
         query: Object.keys(query).length === 0 ? undefined : query,
       });
     },
-    approve(approvalKey: string): Promise<ApprovalDecisionResult> {
-      return request<ApprovalDecisionResult>(http, 'POST', `/approvals/${encodeURIComponent(approvalKey)}/approve`);
+    approve(approvalKey: string, options?: ApprovalDecisionOptions): Promise<ApprovalDecisionResult> {
+      return request<ApprovalDecisionResult>(http, 'POST', `/approvals/${encodeURIComponent(approvalKey)}/approve`, {
+        ...(options?.comment === undefined ? {} : { body: { comment: options.comment } }),
+      });
     },
-    reject(approvalKey: string): Promise<ApprovalDecisionResult> {
-      return request<ApprovalDecisionResult>(http, 'POST', `/approvals/${encodeURIComponent(approvalKey)}/reject`);
+    reject(approvalKey: string, options?: ApprovalDecisionOptions): Promise<ApprovalDecisionResult> {
+      return request<ApprovalDecisionResult>(http, 'POST', `/approvals/${encodeURIComponent(approvalKey)}/reject`, {
+        ...(options?.comment === undefined ? {} : { body: { comment: options.comment } }),
+      });
     },
   };
 }
