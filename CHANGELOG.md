@@ -3,6 +3,14 @@
 All notable changes to `@weave-kit/client`. Format follows [Keep a Changelog](https://keepachangelog.com/);
 the project uses [Semantic Versioning](https://semver.org/).
 
+## [2.2.0]
+
+### Added
+
+- `ApprovalsClient.vote(key, { decision, comment? })` and `votes(key)`.
+- Approval filters support `pendingFor` / `expiresBefore`; decision results expose
+  `approvedCount` / `requiredApprovals`.
+
 ## [2.1.0]
 
 ### Added

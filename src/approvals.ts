@@ -1,4 +1,4 @@
-import type { ApprovalStatus, PendingApproval } from '@weave-kit/contract';
+import type { ApprovalStatus, ApprovalVote, PendingApproval } from '@weave-kit/contract';
 import type { HttpOptions } from './http.js';
 import { request } from './http.js';
 
@@ -9,6 +9,8 @@ export interface ApprovalListFilter {
   actorKey?: string;
   requestedBy?: string;
   approvalKey?: string;
+  pendingFor?: string;
+  expiresBefore?: Date;
   from?: Date;
   to?: Date;
   limit?: number;
@@ -28,6 +30,8 @@ export interface ApprovalListResult {
 export interface ApprovalDecisionResult {
   approvalKey: string;
   status: ApprovalStatus;
+  approvedCount?: number;
+  requiredApprovals?: number;
   approver: string;
   comment?: string;
 }
@@ -42,6 +46,11 @@ export interface ApprovalsClient {
   list(params?: ApprovalListFilter): Promise<ApprovalListResult>;
   approve(approvalKey: string, options?: ApprovalDecisionOptions): Promise<ApprovalDecisionResult>;
   reject(approvalKey: string, options?: ApprovalDecisionOptions): Promise<ApprovalDecisionResult>;
+  vote(
+    approvalKey: string,
+    vote: Omit<ApprovalVote, 'approvalKey' | 'createdAt'>,
+  ): Promise<ApprovalDecisionResult>;
+  votes(approvalKey: string): Promise<{ approvalKey: string; votes: ApprovalVote[] }>;
 }
 
 export function createApprovalsClient(http: HttpOptions): ApprovalsClient {
@@ -53,6 +62,8 @@ export function createApprovalsClient(http: HttpOptions): ApprovalsClient {
       if (params?.actorKey !== undefined) query.actorKey = params.actorKey;
       if (params?.requestedBy !== undefined) query.requestedBy = params.requestedBy;
       if (params?.approvalKey !== undefined) query.approvalKey = params.approvalKey;
+      if (params?.pendingFor !== undefined) query.pendingFor = params.pendingFor;
+      if (params?.expiresBefore !== undefined) query.expiresBefore = params.expiresBefore.toISOString();
       if (params?.from !== undefined) query.from = params.from.toISOString();
       if (params?.to !== undefined) query.to = params.to.toISOString();
       if (params?.limit !== undefined) query.limit = String(params.limit);
@@ -74,6 +85,18 @@ export function createApprovalsClient(http: HttpOptions): ApprovalsClient {
       return request<ApprovalDecisionResult>(http, 'POST', `/approvals/${encodeURIComponent(approvalKey)}/reject`, {
         ...(options?.comment === undefined ? {} : { body: { comment: options.comment } }),
       });
+    },
+    vote(approvalKey, vote): Promise<ApprovalDecisionResult> {
+      return request<ApprovalDecisionResult>(http, 'POST', `/approvals/${encodeURIComponent(approvalKey)}/decisions`, {
+        body: { decision: vote.decision, ...(vote.comment === undefined ? {} : { comment: vote.comment }) },
+      });
+    },
+    votes(approvalKey): Promise<{ approvalKey: string; votes: ApprovalVote[] }> {
+      return request<{ approvalKey: string; votes: ApprovalVote[] }>(
+        http,
+        'GET',
+        `/approvals/${encodeURIComponent(approvalKey)}/votes`,
+      );
     },
   };
 }
