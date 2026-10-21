@@ -9,6 +9,8 @@ export interface ApprovalListFilter {
   actorKey?: string;
   requestedBy?: string;
   approvalKey?: string;
+  /** free-text search across action / actor / requester / approval key */
+  q?: string;
   pendingFor?: string;
   expiresBefore?: Date;
   from?: Date;
@@ -62,6 +64,7 @@ export function createApprovalsClient(http: HttpOptions): ApprovalsClient {
       if (params?.actorKey !== undefined) query.actorKey = params.actorKey;
       if (params?.requestedBy !== undefined) query.requestedBy = params.requestedBy;
       if (params?.approvalKey !== undefined) query.approvalKey = params.approvalKey;
+      if (params?.q !== undefined) query.q = params.q;
       if (params?.pendingFor !== undefined) query.pendingFor = params.pendingFor;
       if (params?.expiresBefore !== undefined) query.expiresBefore = params.expiresBefore.toISOString();
       if (params?.from !== undefined) query.from = params.from.toISOString();
