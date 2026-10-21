@@ -1,4 +1,4 @@
-import { ClientError } from './http.js';
+import { ClientError, resolveLocale } from './http.js';
 import type { HttpOptions } from './http.js';
 
 /**
@@ -118,6 +118,8 @@ export function createSubscriber(http: HttpOptions) {
       const url = new URL(`${http.baseUrl}${http.prefix}/events`);
       const headers: Record<string, string> = { accept: 'text/event-stream' };
       if (http.apiKey !== undefined) headers.authorization = `Bearer ${http.apiKey}`;
+      const locale = resolveLocale(http.locale);
+      if (locale !== undefined) headers['accept-language'] = locale;
       if (lastSeq !== undefined) headers['last-event-id'] = String(lastSeq);
 
       let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;

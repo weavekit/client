@@ -15,12 +15,22 @@ export class ClientError extends Error {
   }
 }
 
+/** Locale tag or a getter evaluated per request (for runtime language switches). */
+export type LocaleSource = string | (() => string | undefined);
+
 /** resolved transport settings for a client */
 export interface HttpOptions {
   baseUrl: string;
   prefix: string;
   apiKey?: string;
+  locale?: LocaleSource;
   fetchImpl: typeof fetch;
+}
+
+export function resolveLocale(locale: LocaleSource | undefined): string | undefined {
+  const value = typeof locale === 'function' ? locale() : locale;
+  const trimmed = value?.trim();
+  return trimmed === undefined || trimmed === '' ? undefined : trimmed;
 }
 
 export interface RequestOptions {
@@ -54,6 +64,8 @@ export async function request<T>(http: HttpOptions, method: string, path: string
 
   const headers: Record<string, string> = {};
   if (http.apiKey !== undefined) headers.authorization = `Bearer ${http.apiKey}`;
+  const locale = resolveLocale(http.locale);
+  if (locale !== undefined) headers['accept-language'] = locale;
   if (options.body !== undefined) headers['content-type'] = 'application/json';
 
   // invoke fetch as a bare call — `http.fetchImpl(...)` would set `this` to the

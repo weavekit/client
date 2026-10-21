@@ -3,6 +3,14 @@
 All notable changes to `@weave-kit/client`. Format follows [Keep a Changelog](https://keepachangelog.com/);
 the project uses [Semantic Versioning](https://semver.org/).
 
+## [2.3.0]
+
+### Added
+
+- `ClientOptions.locale` / `Client.setLocale()` — sends `Accept-Language` on REST and SSE requests.
+  Pass a getter to follow runtime language switches without recreating the client.
+- `derive()` preserves the locale and accepts a per-derivation override.
+
 ## [2.2.0]
 
 ### Added

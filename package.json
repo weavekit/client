@@ -1,6 +1,6 @@
 {
   "name": "@weave-kit/client",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "WeaveKit client — framework-agnostic TypeScript SDK",
   "type": "module",
   "main": "./dist/index.js",

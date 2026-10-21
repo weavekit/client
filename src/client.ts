@@ -2,6 +2,7 @@ import { createObjectsClient } from './objects.js';
 import type { ObjectsClient } from './objects.js';
 import { createSubscriber } from './subscribe.js';
 import type { SubscribeOptions, Subscription } from './subscribe.js';
+import type { LocaleSource } from './http.js';
 import { createMetadataClient } from './metadata.js';
 import type { MetadataClient, PermissionsResult } from './metadata.js';
 import { createAuditClient } from './audit.js';
@@ -28,6 +29,11 @@ export interface ClientOptions {
   prefix?: string;
   /** API key sent as `Authorization: Bearer <apiKey>` */
   apiKey?: string;
+  /**
+   * BCP-47 tag sent as `Accept-Language` on REST and SSE requests. Pass a getter
+   * to follow runtime language switches without recreating the client.
+   */
+  locale?: LocaleSource;
   /** fetch implementation; defaults to the global fetch (inject for testing / custom transport) */
   fetch?: typeof fetch;
 }
@@ -41,13 +47,15 @@ export interface Client {
   objects<T = Record<string, unknown>>(name: string): ObjectsClient<T>;
   /** rotate the API key (login/logout); subsequent requests and subscriptions use it */
   setApiKey(apiKey?: string): void;
+  /** change the request locale (tag or getter); subsequent requests and subscriptions use it */
+  setLocale(locale?: LocaleSource): void;
   /**
    * Derive a client that shares this client's baseUrl + fetch but uses a
    * different REST prefix and/or key. Used to reach the engine's generic proxy —
    * one governance client can produce per-instance `/api/proxy/:id` sub-clients
    * without ever holding a customer-engine key in the browser.
    */
-  derive(options?: { prefix?: string; apiKey?: string }): Client;
+  derive(options?: { prefix?: string; apiKey?: string; locale?: LocaleSource }): Client;
   /** schema + permissions metadata: what this identity can read / do */
   metadata: MetadataClient;
   /** effective permissions per object (shorthand for `metadata.permissions()`) */
@@ -83,6 +91,7 @@ export function createClient(options: ClientOptions): Client {
     baseUrl: options.baseUrl.replace(/\/+$/, ''),
     prefix: options.prefix ?? '/api',
     apiKey: options.apiKey,
+    locale: options.locale,
     fetchImpl: options.fetch ?? fetch,
   };
   const metadata = createMetadataClient(http);
@@ -93,11 +102,15 @@ export function createClient(options: ClientOptions): Client {
     setApiKey(apiKey?: string): void {
       http.apiKey = apiKey;
     },
-    derive(overrides?: { prefix?: string; apiKey?: string }): Client {
+    setLocale(locale?: LocaleSource): void {
+      http.locale = locale;
+    },
+    derive(overrides?: { prefix?: string; apiKey?: string; locale?: LocaleSource }): Client {
       return createClient({
         baseUrl: http.baseUrl,
         prefix: overrides?.prefix ?? http.prefix,
         apiKey: overrides?.apiKey ?? http.apiKey,
+        locale: overrides?.locale ?? http.locale,
         fetch: http.fetchImpl,
       });
     },
